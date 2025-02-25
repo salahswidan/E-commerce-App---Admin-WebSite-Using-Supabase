@@ -27,21 +27,34 @@ class LoginView extends StatelessWidget {
               borderRadius: BorderRadius.circular(16),
             ),
             child: Padding(
-              padding: EdgeInsets.all(16.0),
+              padding: const EdgeInsets.all(16.0),
               child: Column(
                 children: [
-                  CustomTextFormField(
+                  const CustomTextFormField(
                     lableText: 'Email',
                     suffixIcon: Icon(Icons.email),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   CustomTextFormField(
                     isSecured: true,
                     lableText: 'Password',
                     suffixIcon: IconButton(
-                        onPressed: () {}, icon: Icon(Icons.visibility_off)),
+                        onPressed: () {},
+                        icon: const Icon(Icons.visibility_off)),
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      CustomTextButton(
+                        text: 'Forgot Password?',
+                        onTap: () {},
+                      ),
+                    ],
                   ),
                 ],
               ),
@@ -49,6 +62,29 @@ class LoginView extends StatelessWidget {
           ),
         ],
       )),
+    );
+  }
+}
+
+class CustomTextButton extends StatelessWidget {
+  const CustomTextButton({
+    super.key,
+    this.onTap,
+    required this.text,
+  });
+  final void Function()? onTap;
+  final String text;
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: onTap,
+      child: Text(
+        text,
+        style: TextStyle(
+            color: AppColors.kPrimaryColor,
+            fontSize: 18,
+            fontWeight: FontWeight.bold),
+      ),
     );
   }
 }
