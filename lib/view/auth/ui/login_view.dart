@@ -8,61 +8,146 @@ class LoginView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-          child: Column(
-        children: [
-          const SizedBox(
-            height: 24,
-          ),
-          const Text(
-            "Welcome To Our Market",
-            style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-          ),
-          const SizedBox(
-            height: 24,
-          ),
-          Card(
-            margin: const EdgeInsets.all(24),
-            color: AppColors.kWhiteColor,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(16),
+          child: SingleChildScrollView(
+        child: Column(
+          children: [
+            const SizedBox(
+              height: 24,
             ),
-            child: Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Column(
-                children: [
-                  const CustomTextFormField(
-                    lableText: 'Email',
-                    suffixIcon: Icon(Icons.email),
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  CustomTextFormField(
-                    isSecured: true,
-                    lableText: 'Password',
-                    suffixIcon: IconButton(
-                        onPressed: () {},
-                        icon: const Icon(Icons.visibility_off)),
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      CustomTextButton(
-                        text: 'Forgot Password?',
-                        onTap: () {},
-                      ),
-                    ],
-                  ),
-                ],
+            const Text(
+              "Welcome To Our Market",
+              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(
+              height: 24,
+            ),
+            Card(
+              margin: const EdgeInsets.all(24),
+              color: AppColors.kWhiteColor,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(16),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Column(
+                  children: [
+                    const CustomTextFormField(
+                      lableText: 'Email',
+                      suffixIcon: Icon(Icons.email),
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    CustomTextFormField(
+                      isSecured: true,
+                      lableText: 'Password',
+                      suffixIcon: IconButton(
+                          onPressed: () {},
+                          icon: const Icon(Icons.visibility_off)),
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        CustomTextButton(
+                          text: 'Forgot Password?',
+                          onTap: () {},
+                        ),
+                      ],
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    CustomRowWithArrowBtn(
+                      text: "Login",
+                      onTap: () {},
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    CustomRowWithArrowBtn(
+                      text: "Login with Google",
+                      onTap: () {},
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Text(
+                          "Already have account?",
+                          style: TextStyle(
+                              fontSize: 18, fontWeight: FontWeight.bold),
+                        ),
+                        SizedBox(
+                          width: 5,
+                        ),
+                        CustomTextButton(
+                          text: 'Sign Up',
+                          onTap: () {},
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       )),
     );
+  }
+}
+
+class CustomRowWithArrowBtn extends StatelessWidget {
+  const CustomRowWithArrowBtn({
+    super.key,
+    required this.text,
+    this.onTap,
+  });
+  final String text;
+
+  final void Function()? onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Text(
+          text,
+          style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+        ),
+        CustomArrowBtn(
+          onTap: onTap,
+        ),
+      ],
+    );
+  }
+}
+
+class CustomArrowBtn extends StatelessWidget {
+  const CustomArrowBtn({
+    super.key,
+    this.onTap,
+  });
+  final void Function()? onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return ElevatedButton(
+        style: ElevatedButton.styleFrom(
+          backgroundColor: AppColors.kPrimaryColor,
+          foregroundColor: AppColors.kWhiteColor,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(16),
+          ),
+        ),
+        onPressed: onTap,
+        child: Icon(Icons.arrow_forward));
   }
 }
 
