@@ -13,25 +13,50 @@ class HomeView extends StatelessWidget {
       padding: const EdgeInsets.all(8.0),
       child: ListView(
         children: [
-          CustomSearchField(),
+          const CustomSearchField(),
           const SizedBox(
             height: 20,
           ),
           Image.asset("assets/images/buy.jpg"),
-          SizedBox(
+          const SizedBox(
             height: 15,
           ),
-          Text(
+          const Text(
             "Popular Categories",
             style: TextStyle(
               fontWeight: FontWeight.bold,
               fontSize: 20,
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 15,
           ),
-          CategoriesList()
+          const CategoriesList(),
+          const SizedBox(
+            height: 15,
+          ),
+          Card(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(16),
+            ),
+            child: const Column(
+              children: [
+                Stack(
+                  children: [
+                    ClipRRect(
+                      borderRadius: BorderRadius.only(
+                          topRight: Radius.circular(16),
+                          bottomRight: Radius.circular(16),
+                          bottomLeft: Radius.circular(16)),
+                      child: Image(
+                          image: NetworkImage(
+                              "https://img.freepik.com/premium-vector/ramadan-kareem-islamic-post-social-media-background-template_303121-75.jpg?ga=GA1.1.1482810904.1740580934&semt=ais_hybrid")),
+                    )
+                  ],
+                ),
+              ],
+            ),
+          ),
         ],
       ),
     );
