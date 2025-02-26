@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:our_market/core/app_colors.dart';
+import 'package:our_market/view/auth/ui/forget_view.dart';
 import 'package:our_market/view/auth/ui/login_view.dart';
 
 void main() {
