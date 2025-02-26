@@ -11,7 +11,10 @@ class HomeView extends StatelessWidget {
       padding: const EdgeInsets.all(8.0),
       child: ListView(
         children: [
-          CustomSearchField()
+          CustomSearchField(),
+          const SizedBox(
+            height: 20,),
+            Image.asset("assets/images/buy.jpg")
         ],
       ),
     );
