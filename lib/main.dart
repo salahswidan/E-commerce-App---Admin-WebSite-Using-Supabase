@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:our_market/core/app_colors.dart';
 import 'package:our_market/view/auth/ui/forget_view.dart';
 import 'package:our_market/view/auth/ui/login_view.dart';
+import 'package:our_market/view/nav_bar/ui/main_home_view.dart';
 
 void main() {
   runApp(const OurMarket());
@@ -19,7 +20,7 @@ class OurMarket extends StatelessWidget {
         scaffoldBackgroundColor: AppColors.kScaffoldColor,
         useMaterial3: true,
       ),
-      home: LoginView(),
+      home: MainHomeView(),
     );
   }
 }

@@ -7,7 +7,7 @@ import 'package:our_market/view/nav_bar/ui/main_home_view.dart';
 import '../../../core/functions/navigate_to.dart';
 import 'widget/custom_row_with_arrow_btn.dart';
 import 'widget/custom_text_button.dart';
-import 'widget/custom_text_form_field.dart';
+import 'widget/custom_text_field.dart';
 
 class LoginView extends StatelessWidget {
   const LoginView({super.key});

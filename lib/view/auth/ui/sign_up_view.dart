@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:our_market/core/app_colors.dart';
 import 'widget/custom_row_with_arrow_btn.dart';
 import 'widget/custom_text_button.dart';
-import 'widget/custom_text_form_field.dart';
+import 'widget/custom_text_field.dart';
 
 class SignUpView extends StatelessWidget {
   const SignUpView({super.key});
