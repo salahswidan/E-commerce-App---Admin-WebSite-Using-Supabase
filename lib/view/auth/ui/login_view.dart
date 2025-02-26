@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:our_market/core/app_colors.dart';
 import 'package:our_market/view/auth/ui/forget_view.dart';
 import 'package:our_market/view/auth/ui/sign_up_view.dart';
+import 'package:our_market/view/nav_bar/ui/main_home_view.dart';
 
 import '../../../core/functions/navigate_to.dart';
 import 'widget/custom_row_with_arrow_btn.dart';
@@ -80,7 +81,9 @@ class LoginView extends StatelessWidget {
                     ),
                     CustomRowWithArrowBtn(
                       text: "Login with Google",
-                      onTap: () {},
+                      onTap: () {
+                        naviagteTo(context, const MainHomeView());
+                      },
                     ),
                     const SizedBox(
                       height: 20,
