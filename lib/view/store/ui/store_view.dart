@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../../core/components/custom_search_field.dart';
 import '../../../core/components/product_list.dart';
-import '../../home/ui/widget/categories_list.dart';
 
 class StoreView extends StatelessWidget {
   const StoreView({super.key});
