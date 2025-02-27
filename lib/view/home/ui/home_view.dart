@@ -1,7 +1,9 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:our_market/view/auth/ui/widget/custom_elevated_btn.dart';
 import '../../../core/app_colors.dart';
+import '../../../core/components/cache_image.dart';
 import '../../../core/components/custom_search_field.dart';
 import 'widget/categories_list.dart';
 
@@ -44,19 +46,15 @@ class HomeView extends StatelessWidget {
               children: [
                 Stack(
                   children: [
-                    const ClipRRect(
-                      borderRadius: BorderRadius.only(
-                          topRight: Radius.circular(16),
-                          bottomRight: Radius.circular(16),
-                          bottomLeft: Radius.circular(16)),
-                      child: Image(
-                        image: NetworkImage(
-                            "https://img.freepik.com/premium-vector/ramadan-kareem-islamic-post-social-media-background-template_303121-75.jpg?ga=GA1.1.1482810904.1740580934&semt=ais_hybrid"),
-                        height: 250,
-                        width: double.infinity,
-                        fit: BoxFit.fill,
-                      ),
-                    ),
+                    ClipRRect(
+                        borderRadius: BorderRadius.only(
+                            topRight: Radius.circular(16),
+                            bottomRight: Radius.circular(16),
+                            bottomLeft: Radius.circular(16)),
+                        child: CacheImage(
+                          url:           "https://img.freepik.com/premium-vector/ramadan-kareem-islamic-post-social-media-background-template_303121-75.jpg?ga=GA1.1.1482810904.1740580934&semt=ais_hybrid",
+
+                        )),
                     Positioned(
                         child: Container(
                       alignment: Alignment.center,
@@ -136,3 +134,4 @@ class HomeView extends StatelessWidget {
     );
   }
 }
+
