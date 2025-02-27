@@ -39,7 +39,7 @@ class HomeView extends StatelessWidget {
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(16),
             ),
-            child: const Column(
+            child: Column(
               children: [
                 Stack(
                   children: [
@@ -49,9 +49,31 @@ class HomeView extends StatelessWidget {
                           bottomRight: Radius.circular(16),
                           bottomLeft: Radius.circular(16)),
                       child: Image(
-                          image: NetworkImage(
-                              "https://img.freepik.com/premium-vector/ramadan-kareem-islamic-post-social-media-background-template_303121-75.jpg?ga=GA1.1.1482810904.1740580934&semt=ais_hybrid")),
-                    )
+                        image: NetworkImage(
+                            "https://img.freepik.com/premium-vector/ramadan-kareem-islamic-post-social-media-background-template_303121-75.jpg?ga=GA1.1.1482810904.1740580934&semt=ais_hybrid"),
+                        height: 250,
+                        width: double.infinity,
+                        fit: BoxFit.fill,
+                      ),
+                    ),
+                    Positioned(
+                        child: Container(
+                      alignment: Alignment.center,
+                      width: 65,
+                      height: 35,
+                      decoration: BoxDecoration(
+                        color: AppColors.kPrimaryColor,
+                        borderRadius: BorderRadius.only(
+                          topRight: Radius.circular(16),
+                          bottomRight: Radius.circular(16),
+                        ),
+                      ),
+                      child: Text("10% OFF",
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                          )),
+                    ))
                   ],
                 ),
               ],
