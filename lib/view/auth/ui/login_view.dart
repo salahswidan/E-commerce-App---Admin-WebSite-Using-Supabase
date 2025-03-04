@@ -82,7 +82,8 @@ class LoginView extends StatelessWidget {
                     CustomRowWithArrowBtn(
                       text: "Login with Google",
                       onTap: () {
-                        naviagteTo(context,  MainHomeView());
+                        naviagteTo(context, 
+                         MainHomeView());
                       },
                     ),
                     const SizedBox(
