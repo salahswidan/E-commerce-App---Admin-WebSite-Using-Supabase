@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:our_market/core/functions/navigate_to.dart';
+import 'package:our_market/view/profile/edit_name_view.dart';
 
 import '../../../core/app_colors.dart';
 import 'widgets/custom_row_btn.dart';
@@ -54,7 +56,7 @@ class ProfileView extends StatelessWidget {
                   height: 10,
                 ),
                 CustomRowBtn(
-                  onTap: () {},
+                  onTap: () => naviagteTo(context, EditNameView()),
                   icon: Icons.person,
                   text: 'Edit Name',
                 ),
