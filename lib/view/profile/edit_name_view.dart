@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:our_market/core/app_colors.dart';
 import 'package:our_market/view/auth/ui/widget/custom_elevated_btn.dart';
 import 'package:our_market/view/auth/ui/widget/custom_text_field.dart';
-
 import '../../core/functions/build_appBar.dart';
 
 class EditNameView extends StatelessWidget {
@@ -16,10 +14,10 @@ class EditNameView extends StatelessWidget {
         padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
-            CustomTextFormField(
+            const CustomTextFormField(
               lableText: "Enter your name",
             ),
-            SizedBox(
+            const SizedBox(
               height: 15,
             ),
             CustomEBtn(text: "Update", onTap: () {}),

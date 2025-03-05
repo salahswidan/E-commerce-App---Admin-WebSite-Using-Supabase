@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:our_market/core/functions/navigate_to.dart';
 import 'package:our_market/view/profile/edit_name_view.dart';
+import 'package:our_market/view/profile/ui/my_orders.dart';
 
 import '../../../core/app_colors.dart';
 import 'widgets/custom_row_btn.dart';
@@ -64,7 +65,7 @@ class ProfileView extends StatelessWidget {
                   height: 10,
                 ),
                 CustomRowBtn(
-                  onTap: () {},
+                  onTap: () => naviagteTo(context, MyOrdersView()),
                   icon: Icons.shopping_basket,
                   text: 'My Orders',
                 ),
