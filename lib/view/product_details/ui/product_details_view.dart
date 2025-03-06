@@ -15,25 +15,25 @@ class ProductDetailsView extends StatelessWidget {
       appBar: buildCustomAppBar(context, "Product Name"),
       body: ListView(
         children: [
-          CacheImage(
+          const CacheImage(
             url:
                 "https://img.freepik.com/premium-vector/ramadan-kareem-islamic-post-social-media-background-template_303121-75.jpg?ga=GA1.1.1482810904.1740580934&semt=ais_hybrid",
           ),
           Padding(
-            padding: EdgeInsets.symmetric(vertical: 16.0, horizontal: 10),
+            padding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 10),
             child: Column(
               children: [
-                Row(
+                const Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text("Product Name"),
                     Text("123 LE"),
                   ],
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
-                Row(
+                const Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Row(
@@ -51,11 +51,11 @@ class ProductDetailsView extends StatelessWidget {
                     )
                   ],
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 30,
                 ),
-                Text("Product Description"),
-                SizedBox(
+                const Text("Product Description"),
+                const SizedBox(
                   height: 20,
                 ),
                 RatingBar.builder(
@@ -64,8 +64,8 @@ class ProductDetailsView extends StatelessWidget {
                   direction: Axis.horizontal,
                   allowHalfRating: false,
                   itemCount: 5,
-                  itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
-                  itemBuilder: (context, _) => Icon(
+                  itemPadding: const EdgeInsets.symmetric(horizontal: 4.0),
+                  itemBuilder: (context, _) => const Icon(
                     Icons.star,
                     color: Colors.amber,
                   ),
@@ -73,18 +73,18 @@ class ProductDetailsView extends StatelessWidget {
                     print(rating);
                   },
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 40,
                 ),
                 CustomTextFormField(
                   lableText: "Type your feedback",
                   suffixIcon:
-                      IconButton(onPressed: () {}, icon: Icon(Icons.send)),
+                      IconButton(onPressed: () {}, icon: const Icon(Icons.send)),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 15,
                 ),
-                Row(
+                const Row(
                   children: [
                     Text(
                       "Comments",
@@ -93,10 +93,10 @@ class ProductDetailsView extends StatelessWidget {
                     ),
                   ],
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
-                CommentsList()
+                const CommentsList()
               ],
             ),
           ),
