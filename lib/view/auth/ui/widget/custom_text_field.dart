@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 
 import '../../../../core/app_colors.dart';
@@ -8,16 +7,20 @@ class CustomTextFormField extends StatelessWidget {
     super.key,
     required this.lableText,
     this.suffixIcon,
-    this.isSecured = false, this.keyboardType,
+    this.isSecured = false,
+    this.keyboardType,
+     this.controller,
   });
   final String lableText;
   final Widget? suffixIcon;
   final bool isSecured;
   final TextInputType? keyboardType;
+  final TextEditingController? controller;
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      controller: controller,
       obscureText: isSecured,
       validator: (value) {
         if (value == null || value.isEmpty) {
