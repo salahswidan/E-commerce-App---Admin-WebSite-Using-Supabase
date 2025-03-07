@@ -1,104 +1,156 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:our_market/core/app_colors.dart';
+import 'package:our_market/view/nav_bar/ui/main_home_view.dart';
+import 'package:our_market/view/product_details/ui/logic/cubit/authentication_cubit.dart';
+import '../../../core/components/custom_cicle_progress_indicator.dart';
+import '../../../core/functions/show_msg.dart';
 import 'widget/custom_row_with_arrow_btn.dart';
 import 'widget/custom_text_button.dart';
 import 'widget/custom_text_field.dart';
 
-class SignUpView extends StatelessWidget {
+class SignUpView extends StatefulWidget {
   const SignUpView({super.key});
 
   @override
+  State<SignUpView> createState() => _SignUpViewState();
+}
+
+class _SignUpViewState extends State<SignUpView> {
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _nameController = TextEditingController();
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-          child: SingleChildScrollView(
-        child: Column(
-          children: [
-            const SizedBox(
-              height: 24,
-            ),
-            const Text(
-              "Welcome To Our Market",
-              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-            ),
-            const SizedBox(
-              height: 24,
-            ),
-            Card(
-              margin: const EdgeInsets.all(24),
-              color: AppColors.kWhiteColor,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(16),
-              ),
-              child: Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Column(
-                  children: [
-                    const CustomTextFormField(
-                      lableText: 'Name',
-                      keyboardType: TextInputType.name,
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    const CustomTextFormField(
-                      lableText: 'Email',
-                      keyboardType: TextInputType.emailAddress,
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    CustomTextFormField(
-                      isSecured: true,
-                      lableText: 'Password',
-                      keyboardType: TextInputType.visiblePassword,
-                      suffixIcon: IconButton(
-                          onPressed: () {},
-                          icon: const Icon(Icons.visibility_off)),
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    CustomRowWithArrowBtn(
-                      text: "Sign Up",
-                      onTap: () {},
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    CustomRowWithArrowBtn(
-                      text: "Sign Up with Google",
-                      onTap: () {},
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
+    return BlocConsumer<AuthenticationCubit, AuthenticationState>(
+      listener: (context, state) {
+        if (state is SignUpSuccess) {
+          Navigator.pushReplacement(
+              context, MaterialPageRoute(builder: (context) => MainHomeView()));
+        }
+        if (state is SignUpError) {
+          showMsg(context, state.message);
+        }
+      },
+      builder: (context, state) {
+        return Scaffold(
+          body: state is SignUpLoading
+              ? CustomCircleIndicator()
+              : SafeArea(
+                  child: SingleChildScrollView(
+                  child: Form(
+                    key: _formKey,
+                    child: Column(
                       children: [
+                        const SizedBox(
+                          height: 24,
+                        ),
                         const Text(
-                          "Already have account?",
+                          "Welcome To Our Market",
                           style: TextStyle(
-                              fontSize: 18, fontWeight: FontWeight.bold),
+                              fontSize: 24, fontWeight: FontWeight.bold),
                         ),
-                        SizedBox(
-                          width: 5,
+                        const SizedBox(
+                          height: 24,
                         ),
-                        CustomTextButton(
-                          text: 'Login In',
-                          onTap: () {
-                            Navigator.pop(context);
-                          },
+                        Card(
+                          margin: const EdgeInsets.all(24),
+                          color: AppColors.kWhiteColor,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(16),
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.all(16.0),
+                            child: Column(
+                              children: [
+                                const CustomTextFormField(
+                                  lableText: 'Name',
+                                  keyboardType: TextInputType.name,
+                                ),
+                                const SizedBox(
+                                  height: 20,
+                                ),
+                                const CustomTextFormField(
+                                  lableText: 'Email',
+                                  keyboardType: TextInputType.emailAddress,
+                                ),
+                                const SizedBox(
+                                  height: 20,
+                                ),
+                                CustomTextFormField(
+                                  isSecured: true,
+                                  lableText: 'Password',
+                                  keyboardType: TextInputType.visiblePassword,
+                                  suffixIcon: IconButton(
+                                      onPressed: () {},
+                                      icon: const Icon(Icons.visibility_off)),
+                                ),
+                                const SizedBox(
+                                  height: 20,
+                                ),
+                                CustomRowWithArrowBtn(
+                                  text: "Sign Up",
+                                  onTap: () {
+                                    if (_formKey.currentState!.validate()) {
+                                      context
+                                          .read<AuthenticationCubit>()
+                                          .register(
+                                              name: _nameController.text,
+                                              email: _emailController.text,
+                                              password:
+                                                  _passwordController.text);
+                                    }
+                                  },
+                                ),
+                                const SizedBox(
+                                  height: 20,
+                                ),
+                                CustomRowWithArrowBtn(
+                                  text: "Sign Up with Google",
+                                  onTap: () {},
+                                ),
+                                const SizedBox(
+                                  height: 20,
+                                ),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    const Text(
+                                      "Already have account?",
+                                      style: TextStyle(
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                    SizedBox(
+                                      width: 5,
+                                    ),
+                                    CustomTextButton(
+                                      text: 'Login In',
+                                      onTap: () {
+                                        Navigator.pop(context);
+                                      },
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
                         ),
                       ],
                     ),
-                  ],
-                ),
-              ),
-            ),
-          ],
-        ),
-      )),
+                  ),
+                )),
+        );
+      },
     );
+  }
+
+  @override
+  void dispose() {
+    _emailController.dispose();
+    _passwordController.dispose();
+    _nameController.dispose();
+    super.dispose();
   }
 }
