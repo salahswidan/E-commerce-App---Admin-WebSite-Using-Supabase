@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:our_market/core/app_colors.dart';
-import 'package:our_market/view/auth/ui/forget_view.dart';
 import 'package:our_market/view/auth/ui/login_view.dart';
 import 'package:our_market/view/nav_bar/ui/main_home_view.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -24,6 +23,7 @@ class OurMarket extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+      SupabaseClient client = Supabase.instance.client;
     return BlocProvider( 
       create: (context) => AuthenticationCubit(),
       child: MaterialApp(
@@ -33,7 +33,7 @@ class OurMarket extends StatelessWidget {
           scaffoldBackgroundColor: AppColors.kScaffoldColor,
           useMaterial3: true,
         ),
-        home: LoginView(),
+        home: client.auth.currentUser != null ? MainHomeView():  LoginView(),
       ),
     );
   }
