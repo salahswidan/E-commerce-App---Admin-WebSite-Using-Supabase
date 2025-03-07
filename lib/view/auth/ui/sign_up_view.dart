@@ -21,6 +21,8 @@ class _SignUpViewState extends State<SignUpView> {
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _nameController = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+    bool isPasswordHidden = true;
+
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<AuthenticationCubit, AuthenticationState>(
@@ -79,12 +81,17 @@ class _SignUpViewState extends State<SignUpView> {
                                   height: 20,
                                 ),
                                 CustomTextFormField(
-                                  isSecured: true,
+                                  isSecured: isPasswordHidden,
                                   lableText: 'Password',
                                   keyboardType: TextInputType.visiblePassword,
                                   suffixIcon: IconButton(
-                                      onPressed: () {},
-                                      icon: const Icon(Icons.visibility_off)),
+                                      onPressed: () {
+                                        setState(() {
+                                          isPasswordHidden =
+                                              !isPasswordHidden;
+                                        });
+                                      },
+                                      icon:  Icon(isPasswordHidden ? Icons.visibility : Icons.visibility_off)),
                                 ),
                                 const SizedBox(
                                   height: 20,
