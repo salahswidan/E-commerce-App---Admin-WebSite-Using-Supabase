@@ -8,6 +8,7 @@ import 'package:our_market/view/auth/ui/forget_view.dart';
 import 'package:our_market/view/auth/ui/sign_up_view.dart';
 import 'package:our_market/view/nav_bar/ui/main_home_view.dart';
 import '../../../core/functions/navigate_to.dart';
+import '../../../core/functions/navigate_without_back.dart';
 import '../../../core/functions/show_msg.dart';
 import '../../product_details/ui/logic/cubit/authentication_cubit.dart';
 import 'widget/custom_row_with_arrow_btn.dart';
@@ -31,8 +32,7 @@ class _LoginViewState extends State<LoginView> {
     return BlocConsumer<AuthenticationCubit, AuthenticationState>(
       listener: (context, state) {
           if (state is LoginSuccess || state is GoogleSignInSuccess) {
-          Navigator.pushReplacement(
-              context, MaterialPageRoute(builder: (context) => MainHomeView()));
+            naviagteWithoutBack(context,  MainHomeView());
         }
         if (state is LoginError) {
           showMsg(context, state.message);
@@ -163,6 +163,7 @@ class _LoginViewState extends State<LoginView> {
       },
     );
   }
+ 
 
   @override
   void dispose() {
