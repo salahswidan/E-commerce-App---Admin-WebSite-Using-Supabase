@@ -5,7 +5,6 @@ import 'package:our_market/core/my_observer.dart';
 import 'package:our_market/view/auth/ui/login_view.dart';
 import 'package:our_market/view/nav_bar/ui/main_home_view.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-
 import 'view/product_details/ui/logic/cubit/authentication_cubit.dart';
 
 void main() async {
