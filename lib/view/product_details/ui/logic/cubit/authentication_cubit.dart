@@ -34,7 +34,7 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
     emit(SignUpLoading());
     try {
       await client.auth.signUp(email: email, password: password);
-            await addUserData(email: email, name: name);
+      await addUserData(email: email, name: name);
 
       emit(SignUpSuccess());
     } on AuthException catch (e) {
@@ -75,6 +75,7 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
       idToken: idToken,
       accessToken: accessToken,
     );
+    await addUserData(email: googleUser!.email, name: googleUser!.displayName!);
     emit(GoogleSignInSuccess());
     return response;
   }
@@ -101,11 +102,13 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
     }
   }
 
+  // insert : add only
+  // upsert : add if not exist, update if exist
   Future<void> addUserData(
       {required String email, required String name}) async {
     emit(UserDataAddedLoading());
     try {
-      await client.from('users').insert({
+      await client.from('users').upsert({
         'user_id': client.auth.currentUser!.id,
         'name': name,
         'email': email,
