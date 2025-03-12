@@ -2,15 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:our_market/core/app_colors.dart';
 import 'package:our_market/core/components/cache_image.dart';
 import 'package:our_market/core/functions/navigate_to.dart';
+import 'package:our_market/core/models/product_model/product_model.dart';
 
 import '../../view/auth/ui/widget/custom_elevated_btn.dart';
 import '../../view/product_details/ui/product_details_view.dart';
 
 class ProductCard extends StatelessWidget {
   const ProductCard({
-    super.key,
+    super.key, required this.product,
   });
-
+ final ProductModel product;
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -23,14 +24,14 @@ class ProductCard extends StatelessWidget {
           children: [
             Stack(
               children: [
-                const ClipRRect(
+                 ClipRRect(
                     borderRadius: BorderRadius.only(
                         topRight: Radius.circular(16),
                         bottomRight: Radius.circular(16),
                         bottomLeft: Radius.circular(16)),
                     child: CacheImage(
                       url:
-                          "https://img.freepik.com/premium-vector/ramadan-kareem-islamic-post-social-media-background-template_303121-75.jpg?ga=GA1.1.1482810904.1740580934&semt=ais_hybrid",
+                      product.imageUrl ??     "https://img.freepik.com/premium-vector/ramadan-kareem-islamic-post-social-media-background-template_303121-75.jpg?ga=GA1.1.1482810904.1740580934&semt=ais_hybrid",
                     )),
                 Positioned(
                     child: Container(
@@ -44,7 +45,8 @@ class ProductCard extends StatelessWidget {
                       bottomRight: Radius.circular(16),
                     ),
                   ),
-                  child: const Text("10% OFF",
+                  child:  Text(
+                    "${product.sale}% OFF",
                       style: TextStyle(
                         color: Colors.white,
                         fontWeight: FontWeight.bold,
@@ -62,7 +64,7 @@ class ProductCard extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      const Text("Product Name",
+                       Text(product.productName ?? "Product Name",
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 20,
@@ -79,14 +81,14 @@ class ProductCard extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      const Column(
+                       Column(
                         children: [
-                          Text("100 LE",
+                          Text("${product.price} LE",
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 fontSize: 20,
                               )),
-                          Text("120 LE",
+                          Text("${product.oldPrice} LE",
                               style: TextStyle(
                                   decoration: TextDecoration.lineThrough,
                                   fontWeight: FontWeight.bold,
