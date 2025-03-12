@@ -4,13 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:our_market/core/app_colors.dart';
 import 'package:our_market/core/functions/show_msg.dart';
-import 'package:our_market/view/product_details/ui/logic/cubit/authentication_cubit.dart';
+import 'package:our_market/view/auth/logic/cubit/authentication_cubit.dart';
 import '../../../core/components/custom_cicle_progress_indicator.dart';
 import 'widget/custom_elevated_btn.dart';
 import 'widget/custom_text_field.dart';
 
 class ForgetView extends StatefulWidget {
-const ForgetView({super.key});
+  const ForgetView({super.key});
 
   @override
   State<ForgetView> createState() => _ForgetViewState();
@@ -63,7 +63,7 @@ class _ForgetViewState extends State<ForgetView> {
                           padding: const EdgeInsets.all(16.0),
                           child: Column(
                             children: [
-                               CustomTextFormField(
+                              CustomTextFormField(
                                 controller: emailController,
                                 lableText: 'Email',
                                 keyboardType: TextInputType.emailAddress,
@@ -94,6 +94,7 @@ class _ForgetViewState extends State<ForgetView> {
       },
     );
   }
+
   @override
   void dispose() {
     emailController.dispose();

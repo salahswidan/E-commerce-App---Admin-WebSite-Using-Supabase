@@ -9,7 +9,7 @@ class EditNameView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: buildCustomAppBar( context,"Edit Name"),
+      appBar: buildCustomAppBar(context, "Edit Name"),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(

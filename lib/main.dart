@@ -6,14 +6,14 @@ import 'package:our_market/view/auth/ui/login_view.dart';
 import 'package:our_market/view/nav_bar/ui/main_home_view.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'core/sensitive_data.dart';
-import 'view/product_details/ui/logic/cubit/authentication_cubit.dart';
+import 'view/auth/logic/cubit/authentication_cubit.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await Supabase.initialize(
     url: 'https://fkjveyulwgvqmkuqllmi.supabase.co',
-    anonKey:anonkey,
+    anonKey: anonkey,
   );
   Bloc.observer = MyObserver();
   runApp(const OurMarket());
@@ -24,8 +24,8 @@ class OurMarket extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-      SupabaseClient client = Supabase.instance.client;
-    return BlocProvider( 
+    SupabaseClient client = Supabase.instance.client;
+    return BlocProvider(
       create: (context) => AuthenticationCubit(),
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
@@ -34,7 +34,7 @@ class OurMarket extends StatelessWidget {
           scaffoldBackgroundColor: AppColors.kScaffoldColor,
           useMaterial3: true,
         ),
-        home: client.auth.currentUser != null ? MainHomeView() :   LoginView(),
+        home: client.auth.currentUser != null ? MainHomeView() : LoginView(),
       ),
     );
   }

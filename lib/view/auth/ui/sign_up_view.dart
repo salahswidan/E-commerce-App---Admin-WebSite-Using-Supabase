@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:our_market/core/app_colors.dart';
 import 'package:our_market/view/nav_bar/ui/main_home_view.dart';
-import 'package:our_market/view/product_details/ui/logic/cubit/authentication_cubit.dart';
+import 'package:our_market/view/auth/logic/cubit/authentication_cubit.dart';
 import '../../../core/components/custom_cicle_progress_indicator.dart';
 import '../../../core/functions/show_msg.dart';
 import 'widget/custom_row_with_arrow_btn.dart';
@@ -21,7 +21,7 @@ class _SignUpViewState extends State<SignUpView> {
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _nameController = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-    bool isPasswordHidden = true;
+  bool isPasswordHidden = true;
 
   @override
   Widget build(BuildContext context) {
@@ -66,7 +66,7 @@ class _SignUpViewState extends State<SignUpView> {
                             padding: const EdgeInsets.all(16.0),
                             child: Column(
                               children: [
-                                 CustomTextFormField(
+                                CustomTextFormField(
                                   controller: _nameController,
                                   lableText: 'Name',
                                   keyboardType: TextInputType.name,
@@ -74,7 +74,7 @@ class _SignUpViewState extends State<SignUpView> {
                                 const SizedBox(
                                   height: 20,
                                 ),
-                                 CustomTextFormField(
+                                CustomTextFormField(
                                   controller: _emailController,
                                   lableText: 'Email',
                                   keyboardType: TextInputType.emailAddress,
@@ -90,11 +90,12 @@ class _SignUpViewState extends State<SignUpView> {
                                   suffixIcon: IconButton(
                                       onPressed: () {
                                         setState(() {
-                                          isPasswordHidden =
-                                              !isPasswordHidden;
+                                          isPasswordHidden = !isPasswordHidden;
                                         });
                                       },
-                                      icon:  Icon(isPasswordHidden ? Icons.visibility : Icons.visibility_off)),
+                                      icon: Icon(isPasswordHidden
+                                          ? Icons.visibility
+                                          : Icons.visibility_off)),
                                 ),
                                 const SizedBox(
                                   height: 20,

@@ -1,12 +1,11 @@
-
 import 'package:flutter/material.dart';
 
 import '../app_colors.dart';
 
-PreferredSizeWidget buildCustomAppBar( BuildContext context,String title) {
+PreferredSizeWidget buildCustomAppBar(BuildContext context, String title) {
   return AppBar(
     centerTitle: true,
-    title:  Text(
+    title: Text(
       title,
       style: TextStyle(color: Colors.white),
     ),

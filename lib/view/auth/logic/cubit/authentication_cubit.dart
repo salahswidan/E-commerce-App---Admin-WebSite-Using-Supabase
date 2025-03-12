@@ -4,7 +4,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:meta/meta.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
-import '../models/user_model.dart';
+import 'models/user_model.dart';
 
 part 'authentication_state.dart';
 
@@ -132,9 +132,9 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
           .from('users')
           .select()
           .eq("user_id", client.auth.currentUser!.id);
-          userDataModel = UserDataModel(
-        name: data[0]['name'] ,
-        userId: data[0]['user_id'] ,
+      userDataModel = UserDataModel(
+        name: data[0]['name'],
+        userId: data[0]['user_id'],
         email: data[0]['email'],
       );
       emit(GetUserDataSuccess());

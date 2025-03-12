@@ -25,15 +25,17 @@ class ProductList extends StatelessWidget {
         },
         builder: (context, state) {
           List<ProductModel> products = context.read<HomeCubit>().products;
-          return state is GetDataLoading ? CustomCircleIndicator(): ListView.builder(
-              shrinkWrap: shrinkWrap ?? true,
-              physics: physics ?? const NeverScrollableScrollPhysics(),
-              itemCount: products.length,
-              itemBuilder: (context, index) {
-                return  ProductCard(
-                  product: products[index],
-                );
-              });
+          return state is GetDataLoading
+              ? CustomCircleIndicator()
+              : ListView.builder(
+                  shrinkWrap: shrinkWrap ?? true,
+                  physics: physics ?? const NeverScrollableScrollPhysics(),
+                  itemCount: products.length,
+                  itemBuilder: (context, index) {
+                    return ProductCard(
+                      product: products[index],
+                    );
+                  });
         },
       ),
     );

@@ -10,7 +10,7 @@ import 'package:our_market/view/nav_bar/ui/main_home_view.dart';
 import '../../../core/functions/navigate_to.dart';
 import '../../../core/functions/navigate_without_back.dart';
 import '../../../core/functions/show_msg.dart';
-import '../../product_details/ui/logic/cubit/authentication_cubit.dart';
+import '../logic/cubit/authentication_cubit.dart';
 import 'widget/custom_row_with_arrow_btn.dart';
 import 'widget/custom_text_button.dart';
 import 'widget/custom_text_field.dart';
@@ -31,8 +31,8 @@ class _LoginViewState extends State<LoginView> {
   Widget build(BuildContext context) {
     return BlocConsumer<AuthenticationCubit, AuthenticationState>(
       listener: (context, state) {
-          if (state is LoginSuccess || state is GoogleSignInSuccess) {
-            naviagteWithoutBack(context,  MainHomeView());
+        if (state is LoginSuccess || state is GoogleSignInSuccess) {
+          naviagteWithoutBack(context, MainHomeView());
         }
         if (state is LoginError) {
           showMsg(context, state.message);
@@ -87,11 +87,12 @@ class _LoginViewState extends State<LoginView> {
                                   suffixIcon: IconButton(
                                       onPressed: () {
                                         setState(() {
-                                          isPasswordHidden =
-                                              !isPasswordHidden;
+                                          isPasswordHidden = !isPasswordHidden;
                                         });
                                       },
-                                      icon:  Icon(isPasswordHidden ? Icons.visibility : Icons.visibility_off)),
+                                      icon: Icon(isPasswordHidden
+                                          ? Icons.visibility
+                                          : Icons.visibility_off)),
                                 ),
                                 const SizedBox(
                                   height: 20,
@@ -163,7 +164,6 @@ class _LoginViewState extends State<LoginView> {
       },
     );
   }
- 
 
   @override
   void dispose() {
@@ -171,5 +171,4 @@ class _LoginViewState extends State<LoginView> {
     passwordController.dispose();
     super.dispose();
   }
-  
 }

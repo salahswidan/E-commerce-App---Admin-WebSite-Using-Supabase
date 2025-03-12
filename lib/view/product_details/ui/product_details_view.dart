@@ -78,8 +78,8 @@ class ProductDetailsView extends StatelessWidget {
                 ),
                 CustomTextFormField(
                   lableText: "Type your feedback",
-                  suffixIcon:
-                      IconButton(onPressed: () {}, icon: const Icon(Icons.send)),
+                  suffixIcon: IconButton(
+                      onPressed: () {}, icon: const Icon(Icons.send)),
                 ),
                 const SizedBox(
                   height: 15,

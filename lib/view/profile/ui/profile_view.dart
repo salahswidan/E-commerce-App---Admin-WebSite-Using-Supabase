@@ -3,12 +3,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:our_market/core/components/custom_cicle_progress_indicator.dart';
 import 'package:our_market/core/functions/navigate_to.dart';
 import 'package:our_market/view/auth/ui/login_view.dart';
-import 'package:our_market/view/product_details/ui/logic/models/user_model.dart';
+import 'package:our_market/view/auth/logic/cubit/models/user_model.dart';
 import 'package:our_market/view/profile/edit_name_view.dart';
 import 'package:our_market/view/profile/ui/my_orders.dart';
 import '../../../core/app_colors.dart';
 import '../../../core/functions/navigate_without_back.dart';
-import '../../product_details/ui/logic/cubit/authentication_cubit.dart';
+import '../../auth/logic/cubit/authentication_cubit.dart';
 import 'widgets/custom_row_btn.dart';
 
 class ProfileView extends StatelessWidget {

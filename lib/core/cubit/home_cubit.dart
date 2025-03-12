@@ -18,9 +18,9 @@ class HomeCubit extends Cubit<HomeState> {
     try {
       Response response = await _apiServices.getData(
           'product_table?select=*,favorite_products(*),purchase_table(*)');
-          for (var product in response.data) {
-            products.add(ProductModel.fromJson(product));
-          }
+      for (var product in response.data) {
+        products.add(ProductModel.fromJson(product));
+      }
       emit(GetDataSuccess());
     } catch (e) {
       log(e.toString());
