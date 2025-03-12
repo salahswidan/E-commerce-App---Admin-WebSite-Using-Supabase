@@ -5,6 +5,7 @@ import 'package:our_market/core/my_observer.dart';
 import 'package:our_market/view/auth/ui/login_view.dart';
 import 'package:our_market/view/nav_bar/ui/main_home_view.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+import 'core/sensitive_data.dart';
 import 'view/product_details/ui/logic/cubit/authentication_cubit.dart';
 
 void main() async {
@@ -12,8 +13,7 @@ void main() async {
 
   await Supabase.initialize(
     url: 'https://fkjveyulwgvqmkuqllmi.supabase.co',
-    anonKey:
-        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZranZleXVsd2d2cW1rdXFsbG1pIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDEyNTk3MjAsImV4cCI6MjA1NjgzNTcyMH0.2rylH2yPJy1URIngteRMiQaKBJ_jtZUfEPSHUztxDhE',
+    anonKey:anonkey,
   );
   Bloc.observer = MyObserver();
   runApp(const OurMarket());
