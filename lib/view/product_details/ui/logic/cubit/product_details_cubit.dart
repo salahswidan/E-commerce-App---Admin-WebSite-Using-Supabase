@@ -1,12 +1,9 @@
 import 'dart:developer';
-
 import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
 import 'package:meta/meta.dart';
 import 'package:our_market/core/api_services.dart';
-
 import '../models/rate.dart';
-
 part 'product_details_state.dart';
 
 class ProductDetailsCubit extends Cubit<ProductDetailsState> {
@@ -23,10 +20,21 @@ class ProductDetailsCubit extends Cubit<ProductDetailsState> {
       for (var rate in response.data) {
         rates.add(Rate.fromJson(rate));
       }
+      _getAverageRates();
+        log(averageRate.toString());
       emit(GetRateSuccess());
     } catch (e) {
       log(e.toString());
       emit(GetRateError());
     }
+  }
+
+  void _getAverageRates() {
+      for(var userRate in rates){
+      if (userRate.rate != null) {
+      averageRate += userRate.rate!;
+    }
+    }
+      averageRate = averageRate ~/ rates.length;
   }
 }
