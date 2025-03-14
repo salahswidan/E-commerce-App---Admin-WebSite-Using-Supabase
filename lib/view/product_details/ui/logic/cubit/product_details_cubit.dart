@@ -83,4 +83,15 @@ class ProductDetailsCubit extends Cubit<ProductDetailsState> {
       emit(AddOrUpdateRateError());
     }
   }
+  Future<void> addComment({required Map<String, dynamic> data})async{
+    emit(AddCommentLoading());
+    try {
+      await _apiServices.postData("comments_table", data);
+      emit(AddCommentSuccess());
+    } catch (e) {
+      log(e.toString());
+      emit(AddCommentError());
+    }
+
+  }
 }
