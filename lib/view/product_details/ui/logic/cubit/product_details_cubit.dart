@@ -10,6 +10,7 @@ part 'product_details_state.dart';
 class ProductDetailsCubit extends Cubit<ProductDetailsState> {
   ProductDetailsCubit() : super(ProductDetailsInitial());
   final ApiServices _apiServices = ApiServices();
+  String userID = Supabase.instance.client.auth.currentUser!.id;
 
   List<Rate> rates = [];
   int averageRate = 0;
@@ -24,7 +25,7 @@ class ProductDetailsCubit extends Cubit<ProductDetailsState> {
       }
       _getAverageRates();
       _getUserRate();
-  
+
       emit(GetRateSuccess());
     } catch (e) {
       log(e.toString());
@@ -33,10 +34,9 @@ class ProductDetailsCubit extends Cubit<ProductDetailsState> {
   }
 
   void _getUserRate() {
-       List<Rate> userRates = rates
-        .where((Rate rate) =>
-            rate.forUser == Supabase.instance.client.auth.currentUser!.id)
-        .toList();
+    List<Rate> userRates = rates.where((Rate rate) {
+      return rate.forUser == userID;
+    }).toList();
     if (userRates.isNotEmpty) {
       userRate = userRates[0].rate!;
     }
@@ -49,5 +49,34 @@ class ProductDetailsCubit extends Cubit<ProductDetailsState> {
       }
     }
     averageRate = averageRate ~/ rates.length;
+  }
+
+  bool _isUserRateExist({required String productId}) {
+    for (var rate in rates) {
+      if ((rate.forUser == userID) && (rate.forProduct == productId)) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  Future<void> addOrUpdateUserRate({required String productId,required Map<String,dynamic>data}) async {
+    // user doesn't exist ==> add for user rate
+    String path = "rates_table?select=*&for_user=eq.$userID&for_product=eq.$productId";
+    emit(AddOrUpdateRateLoading());
+    try {
+      if (_isUserRateExist(productId: productId)) {
+            // user rate exist ==> update for user rate
+        // patch rate
+        await _apiServices.patchData(path, data);
+      } else {
+        // post rate
+        await _apiServices.postData(path, data);
+      }
+      emit(AddOrUpdateRateSuccess());
+    } catch (e) {
+      log(e.toString());
+      emit(AddOrUpdateRateError());
+    }
   }
 }
