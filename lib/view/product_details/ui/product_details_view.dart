@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:our_market/core/components/custom_cicle_progress_indicator.dart';
 import 'package:our_market/core/functions/build_appBar.dart';
+import 'package:our_market/core/functions/navigate_without_back.dart';
 import 'package:our_market/core/models/product_model/product_model.dart';
 import 'package:our_market/view/auth/ui/widget/custom_text_field.dart';
 import 'package:our_market/view/product_details/ui/logic/cubit/product_details_cubit.dart';
@@ -20,14 +21,16 @@ class ProductDetailsView extends StatelessWidget {
       create: (context) =>
           ProductDetailsCubit()..getRates(productId: product.productId!),
       child: BlocConsumer<ProductDetailsCubit, ProductDetailsState>(
-        listener: (context, state) {
-          // TODO: implement listener
+        listener: (context, state) async {
+          if (state is AddOrUpdateRateSuccess) {
+            naviagteWithoutBack(context, this);
+          }
         },
         builder: (context, state) {
           ProductDetailsCubit cubit = context.read<ProductDetailsCubit>();
           return Scaffold(
             appBar: buildCustomAppBar(context, "Product Name"),
-            body: state is GetRateLoading
+            body: state is GetRateLoading 
                 ? CustomCircleIndicator()
                 : ListView(
                     children: [
@@ -88,7 +91,13 @@ class ProductDetailsView extends StatelessWidget {
                                 color: Colors.amber,
                               ),
                               onRatingUpdate: (rating) {
-                                print(rating);
+                                cubit.addOrUpdateUserRate(
+                                    productId: product.productId!,
+                                    data: {
+                                      "rate": rating.toInt(),
+                                      "for_user": cubit.userId,
+                                      "for_product": product.productId
+                                    });
                               },
                             ),
                             const SizedBox(

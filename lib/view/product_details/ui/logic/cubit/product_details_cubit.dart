@@ -10,7 +10,7 @@ part 'product_details_state.dart';
 class ProductDetailsCubit extends Cubit<ProductDetailsState> {
   ProductDetailsCubit() : super(ProductDetailsInitial());
   final ApiServices _apiServices = ApiServices();
-  String userID = Supabase.instance.client.auth.currentUser!.id;
+  String userId = Supabase.instance.client.auth.currentUser!.id;
 
   List<Rate> rates = [];
   int averageRate = 0;
@@ -35,7 +35,7 @@ class ProductDetailsCubit extends Cubit<ProductDetailsState> {
 
   void _getUserRate() {
     List<Rate> userRates = rates.where((Rate rate) {
-      return rate.forUser == userID;
+      return rate.forUser == userId;
     }).toList();
     if (userRates.isNotEmpty) {
       userRate = userRates[0].rate!;
@@ -48,25 +48,29 @@ class ProductDetailsCubit extends Cubit<ProductDetailsState> {
         averageRate += userRate.rate!;
       }
     }
-    averageRate = averageRate ~/ rates.length;
+    if (rates.isNotEmpty) {
+  averageRate = averageRate ~/ rates.length;
+}
   }
 
   bool _isUserRateExist({required String productId}) {
     for (var rate in rates) {
-      if ((rate.forUser == userID) && (rate.forProduct == productId)) {
+      if ((rate.forUser == userId) && (rate.forProduct == productId)) {
         return true;
       }
     }
     return false;
   }
 
-  Future<void> addOrUpdateUserRate({required String productId,required Map<String,dynamic>data}) async {
+  Future<void> addOrUpdateUserRate(
+      {required String productId, required Map<String, dynamic> data}) async {
     // user doesn't exist ==> add for user rate
-    String path = "rates_table?select=*&for_user=eq.$userID&for_product=eq.$productId";
+    String path =
+        "rates_table?select=*&for_user=eq.$userId&for_product=eq.$productId";
     emit(AddOrUpdateRateLoading());
     try {
       if (_isUserRateExist(productId: productId)) {
-            // user rate exist ==> update for user rate
+        // user rate exist ==> update for user rate
         // patch rate
         await _apiServices.patchData(path, data);
       } else {
