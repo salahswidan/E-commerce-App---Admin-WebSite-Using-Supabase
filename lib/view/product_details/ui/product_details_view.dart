@@ -115,6 +115,9 @@ class _ProductDetailsViewState extends State<ProductDetailsView> {
                               lableText: "Type your feedback",
                               suffixIcon: IconButton(
                                   onPressed: () async {
+                                    await context
+                                        .read<AuthenticationCubit>()
+                                        .getUserData();
                                     await cubit.addComment(data: {
                                       "comment": _commentController.text,
                                       "for_user": cubit.userId,
@@ -123,7 +126,7 @@ class _ProductDetailsViewState extends State<ProductDetailsView> {
                                               .read<AuthenticationCubit>()
                                               .userDataModel
                                               ?.name ??
-                                          "User is null "
+                                          "User Name"
                                     });
                                     _commentController.clear();
                                   },
