@@ -123,7 +123,7 @@ class _ProductDetailsViewState extends State<ProductDetailsView> {
                                               .read<AuthenticationCubit>()
                                               .userDataModel
                                               ?.name ??
-                                          "User Name"
+                                          "User is null "
                                     });
                                     _commentController.clear();
                                   },
@@ -145,7 +145,9 @@ class _ProductDetailsViewState extends State<ProductDetailsView> {
                             const SizedBox(
                               height: 20,
                             ),
-                             CommentsList(productModel: widget.product,)
+                            CommentsList(
+                              productModel: widget.product,
+                            )
                           ],
                         ),
                       ),
