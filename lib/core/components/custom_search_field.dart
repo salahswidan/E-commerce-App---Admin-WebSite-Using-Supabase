@@ -5,12 +5,17 @@ import '../app_colors.dart';
 class CustomSearchField extends StatelessWidget {
   const CustomSearchField({
     super.key,
+    this.onPressed, this.controller,
   });
+  final void Function()? onPressed;
+  final TextEditingController? controller;
 
   @override
   Widget build(BuildContext context) {
     return TextField(
+      controller: controller,
       decoration: InputDecoration(
+        
           labelText: 'Search In Market',
           suffixIcon: ElevatedButton.icon(
             style: ElevatedButton.styleFrom(
@@ -20,7 +25,7 @@ class CustomSearchField extends StatelessWidget {
                 borderRadius: BorderRadius.circular(16),
               ),
             ),
-            onPressed: () {},
+            onPressed: onPressed,
             label: Icon(Icons.search),
           ),
           border: OutlineInputBorder(
