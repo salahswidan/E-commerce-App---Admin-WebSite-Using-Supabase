@@ -145,7 +145,7 @@ class _ProductDetailsViewState extends State<ProductDetailsView> {
                             const SizedBox(
                               height: 20,
                             ),
-                            const CommentsList()
+                             CommentsList(productModel: widget.product,)
                           ],
                         ),
                       ),
