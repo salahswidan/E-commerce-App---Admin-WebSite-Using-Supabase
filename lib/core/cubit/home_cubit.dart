@@ -1,5 +1,4 @@
 import 'dart:developer';
-
 import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
 import 'package:meta/meta.dart';
@@ -13,7 +12,8 @@ class HomeCubit extends Cubit<HomeState> {
   final ApiServices _apiServices = ApiServices();
 
   List<ProductModel> products = [];
-  Future<void> getProducts() async {
+  List<ProductModel> searchResults = [];
+  Future<void> getProducts({String? query}) async {
     emit(GetDataLoading());
     try {
       Response response = await _apiServices.getData(
@@ -21,10 +21,21 @@ class HomeCubit extends Cubit<HomeState> {
       for (var product in response.data) {
         products.add(ProductModel.fromJson(product));
       }
+      search(query);
       emit(GetDataSuccess());
     } catch (e) {
       log(e.toString());
       emit(GetDataError());
+    }
+  }
+
+  void search(String? query) {
+    if (query != null) {
+      for (var product in products) {
+        if (product.productName!.toLowerCase().contains(query.toLowerCase())) {
+          searchResults.add(product);
+        }
+      }
     }
   }
 }
