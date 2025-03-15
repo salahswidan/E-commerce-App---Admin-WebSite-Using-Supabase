@@ -5,18 +5,36 @@ import '../../../core/components/custom_search_field.dart';
 import '../../../core/components/product_list.dart';
 import 'widget/categories_list.dart';
 
-class HomeView extends StatelessWidget {
+class HomeView extends StatefulWidget {
   const HomeView({super.key});
 
+  @override
+  State<HomeView> createState() => _HomeViewState();
+}
+
+class _HomeViewState extends State<HomeView> {
+  final TextEditingController _searchController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: ListView(
         children: [
+          SizedBox(
+            height: 15,
+          ),
           CustomSearchField(
-            // controller: TextEditingController(),
-            onPressed: () => naviagteTo(context, SearchView()),
+            controller: _searchController,
+            onPressed: () {
+              if (_searchController.text.isNotEmpty) {
+                naviagteTo(
+                    context,
+                    SearchView(
+                      query: _searchController.text,
+                    ));
+                _searchController.clear();
+              }
+            },
           ),
           const SizedBox(
             height: 20,
@@ -51,5 +69,11 @@ class HomeView extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    _searchController.dispose();
+    super.dispose();
   }
 }
