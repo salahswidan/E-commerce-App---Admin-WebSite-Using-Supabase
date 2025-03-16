@@ -9,7 +9,9 @@ class ProductList extends StatelessWidget {
   const ProductList({
     super.key,
     this.shrinkWrap,
-    this.physics, this.query, this.category,
+    this.physics,
+    this.query,
+    this.category,
   });
   final bool? shrinkWrap;
   final ScrollPhysics? physics;
@@ -19,19 +21,23 @@ class ProductList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => HomeCubit()..getProducts(query: query,category: category),
+      create: (context) =>
+          HomeCubit()..getProducts(query: query, category: category),
       child: BlocConsumer<HomeCubit, HomeState>(
         listener: (context, state) {
           // TODO: implement listener
         },
         builder: (context, state) {
-          List<ProductModel> products =query != null ? 
-          context.read<HomeCubit>().searchResults:
-          // query == null
-          category != null ?
-          context.read<HomeCubit>().categoryProducts:
-          // category == null & query == null => home view
-           context.read<HomeCubit>().products;
+          HomeCubit homeCubit = context.read<HomeCubit>();
+          List<ProductModel> products = query != null
+              ? context.read<HomeCubit>().searchResults
+              :
+              // query == null
+              category != null
+                  ? context.read<HomeCubit>().categoryProducts
+                  :
+                  // category == null & query == null => home view
+                  context.read<HomeCubit>().products;
           return state is GetDataLoading
               ? CustomCircleIndicator()
               : ListView.builder(
@@ -40,6 +46,9 @@ class ProductList extends StatelessWidget {
                   itemCount: products.length,
                   itemBuilder: (context, index) {
                     return ProductCard(
+                      onTap: () {
+                        homeCubit.addToFavorite(products[index].productId!);
+                      },
                       product: products[index],
                     );
                   });
