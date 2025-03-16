@@ -46,6 +46,7 @@ class ProductList extends StatelessWidget {
                   itemCount: products.length,
                   itemBuilder: (context, index) {
                     return ProductCard(
+                      isFavorite: homeCubit.checkIsFavorite(products[index].productId!),
                       onTap: () {
                         homeCubit.addToFavorite(products[index].productId!);
                       },
