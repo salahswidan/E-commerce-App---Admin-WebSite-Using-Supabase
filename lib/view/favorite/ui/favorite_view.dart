@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-
-import '../../../core/components/custom_search_field.dart';
 import '../../../core/components/product_list.dart';
 
 class FavoriteView extends StatelessWidget {
@@ -24,7 +22,9 @@ class FavoriteView extends StatelessWidget {
           SizedBox(
             height: 20,
           ),
-          ProductList()
+          ProductList(
+            isFavoriteView: true,
+          )
         ],
       ),
     );

@@ -11,12 +11,13 @@ class ProductList extends StatelessWidget {
     this.shrinkWrap,
     this.physics,
     this.query,
-    this.category,
+    this.category,  this.isFavoriteView =false,
   });
   final bool? shrinkWrap;
   final ScrollPhysics? physics;
   final String? query;
   final String? category;
+  final bool isFavoriteView;
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +36,7 @@ class ProductList extends StatelessWidget {
               // query == null
               category != null
                   ? context.read<HomeCubit>().categoryProducts
-                  :
+                  : isFavoriteView ? homeCubit.favoriteProductsList :
                   // category == null & query == null => home view
                   context.read<HomeCubit>().products;
           return state is GetDataLoading
@@ -46,11 +47,16 @@ class ProductList extends StatelessWidget {
                   itemCount: products.length,
                   itemBuilder: (context, index) {
                     return ProductCard(
-                      isFavorite: homeCubit.checkIsFavorite(products[index].productId!),
+                      isFavorite:
+                          homeCubit.checkIsFavorite(products[index].productId!),
                       onTap: () {
-                        bool isFavorite = homeCubit.checkIsFavorite(products[index].productId!);
-                     isFavorite ? homeCubit.removeFavorite(products[index].productId!) :
-                        homeCubit.addToFavorite(products[index].productId!);
+                        bool isFavorite = homeCubit
+                            .checkIsFavorite(products[index].productId!);
+                        isFavorite
+                            ? homeCubit
+                                .removeFavorite(products[index].productId!)
+                            : homeCubit
+                                .addToFavorite(products[index].productId!);
                       },
                       product: products[index],
                     );
