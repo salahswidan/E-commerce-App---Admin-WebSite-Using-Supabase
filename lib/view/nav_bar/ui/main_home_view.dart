@@ -3,20 +3,35 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:our_market/core/app_colors.dart';
+import 'package:our_market/view/auth/logic/cubit/models/user_model.dart';
 import '../../favorite/ui/favorite_view.dart';
 import '../../home/ui/home_view.dart';
 import '../../profile/ui/profile_view.dart';
 import '../../store/ui/store_view.dart';
 import '../logic/cubit/nav_bar_cubit.dart';
 
-class MainHomeView extends StatelessWidget {
-  MainHomeView({super.key});
-  final List<Widget> views = [
-    const HomeView(),
-    const StoreView(),
-    const FavoriteView(),
-    const ProfileView()
-  ];
+class MainHomeView extends StatefulWidget {
+  MainHomeView({super.key,  this.userDataModel});
+  final UserDataModel? userDataModel;
+
+  @override
+  State<MainHomeView> createState() => _MainHomeViewState();
+}
+
+class _MainHomeViewState extends State<MainHomeView> {
+  late List<Widget> views;
+  @override
+  void initState() {
+  views = [
+      HomeView(
+        userDataModel: widget.userDataModel!,
+      ),
+      const StoreView(),
+      const FavoriteView(),
+      const ProfileView()
+    ];
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {

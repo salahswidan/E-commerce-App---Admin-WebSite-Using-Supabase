@@ -32,7 +32,9 @@ class _LoginViewState extends State<LoginView> {
     return BlocConsumer<AuthenticationCubit, AuthenticationState>(
       listener: (context, state) {
         if (state is LoginSuccess || state is GoogleSignInSuccess) {
-          naviagteWithoutBack(context, MainHomeView());
+          naviagteWithoutBack(context, MainHomeView(
+            
+          ));
         }
         if (state is LoginError) {
           showMsg(context, state.message);
