@@ -3,6 +3,7 @@ import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
 import 'package:meta/meta.dart';
 import 'package:our_market/core/api_services.dart';
+import 'package:our_market/core/models/product_model/favorite_product.dart';
 import 'package:our_market/core/models/product_model/product_model.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -24,6 +25,7 @@ class HomeCubit extends Cubit<HomeState> {
       for (var product in response.data) {
         products.add(ProductModel.fromJson(product));
       }
+      getFavoriteProducts();
       search(query);
       getPrtoductsByCategory(category);
       emit(GetDataSuccess());
@@ -54,7 +56,7 @@ class HomeCubit extends Cubit<HomeState> {
     }
   }
 
-  Map<String,bool> favoriteProducts = {};
+  Map<String, bool> favoriteProducts = {};
 
   Future<void> addToFavorite(String productId) async {
     emit(AddToFavoriteLoading());
@@ -71,19 +73,36 @@ class HomeCubit extends Cubit<HomeState> {
       emit(AddToFavoriteError());
     }
   }
-  bool checkIsFavorite(String productId){
+
+  bool checkIsFavorite(String productId) {
     return favoriteProducts.containsKey(productId);
   }
-  Future<void> removeFavorite(String productId)async{
+
+  Future<void> removeFavorite(String productId) async {
     emit(RemoveFromFavoriteLoading());
     try {
-      await _apiServices.deleteData("favorite_products?for_user=eq.$userId&for_product=eq.$productId");
-      favoriteProducts.removeWhere((key,value)=> key==productId);
+      await _apiServices.deleteData(
+          "favorite_products?for_user=eq.$userId&for_product=eq.$productId");
+      favoriteProducts.removeWhere((key, value) => key == productId);
       emit(RemoveFromFavoriteSuccess());
     } catch (e) {
       log(e.toString());
       emit(RemoveFromFavoriteError());
     }
+  }
 
+  List<ProductModel> favoriteProductsList = [];
+  void getFavoriteProducts() {
+    for (ProductModel product in products) {
+      if (product.favoriteProducts != null &&
+          product.favoriteProducts!.isNotEmpty) {
+        for (FavoriteProduct favoriteProduct in product.favoriteProducts!) {
+          if (favoriteProduct.forUser == userId) {
+            favoriteProductsList.add(product);
+            favoriteProducts.addAll({product.productId!: true});
+          }
+        }
+      }
+    }
   }
 }
