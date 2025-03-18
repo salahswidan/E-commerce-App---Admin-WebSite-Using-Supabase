@@ -12,13 +12,14 @@ class ProductList extends StatelessWidget {
     this.shrinkWrap,
     this.physics,
     this.query,
-    this.category,  this.isFavoriteView =false,
+    this.category,  this.isFavoriteView =false,  this.isMyOrdersView =false,
   });
   final bool? shrinkWrap;
   final ScrollPhysics? physics;
   final String? query;
   final String? category;
   final bool isFavoriteView;
+  final bool isMyOrdersView;
 
   @override
   Widget build(BuildContext context) {
@@ -41,6 +42,7 @@ class ProductList extends StatelessWidget {
               category != null
                   ? context.read<HomeCubit>().categoryProducts
                   : isFavoriteView ? homeCubit.favoriteProductsList :
+                  isMyOrdersView ? homeCubit.userOrders :
                   // category == null & query == null => home view
                   context.read<HomeCubit>().products;
           return state is GetDataLoading

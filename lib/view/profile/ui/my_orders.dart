@@ -12,6 +12,7 @@ class MyOrdersView extends StatelessWidget {
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: ProductList(
+          isMyOrdersView: true,
           shrinkWrap: false,
           physics: const BouncingScrollPhysics(),
         ),
