@@ -103,25 +103,27 @@ class ProductCard extends StatelessWidget {
                                   color: AppColors.kGreyColor)),
                         ],
                       ),
-                      CustomEBtn(
-                        text: "Buy Now",
-                        onTap: () {
-                          Navigator.push(
-  context,
-  MaterialPageRoute(
-    builder: (context) => PaymentView(
-      onPaymentSuccess: () {
-        log("payment success");
-      },
-      onPaymentError: () {
-        log("payment failure");
-      },
-      price: double.parse(product.price!),
-    ),
-  ),
-);
-                        },
-                      )
+                      Builder(
+                        builder: (context) => CustomEBtn(
+                          text: "Buy Now",
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => PaymentView(
+                                  onPaymentSuccess: () {
+                                    log("payment success");
+                                  },
+                                  onPaymentError: () {
+                                    log("payment failure");
+                                  },
+                                  price: double.parse(product.price!),
+                                ),
+                              ),
+                            );
+                          },
+                        ),
+                      ),
                     ],
                   ),
                 ],

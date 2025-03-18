@@ -29,7 +29,8 @@ class _SignUpViewState extends State<SignUpView> {
       listener: (context, state) {
         if (state is SignUpSuccess || state is GoogleSignInSuccess) {
           Navigator.pushReplacement(
-              context, MaterialPageRoute(builder: (context) => MainHomeView()));
+              context, MaterialPageRoute(builder: (context) => MainHomeView(
+              )));
         }
         if (state is SignUpError) {
           showMsg(context, state.message);

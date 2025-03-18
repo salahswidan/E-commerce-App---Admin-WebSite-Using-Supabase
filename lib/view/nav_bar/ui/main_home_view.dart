@@ -11,8 +11,10 @@ import '../../store/ui/store_view.dart';
 import '../logic/cubit/nav_bar_cubit.dart';
 
 class MainHomeView extends StatefulWidget {
-  MainHomeView({super.key,  this.userDataModel});
-  final UserDataModel? userDataModel;
+  MainHomeView({super.key,  
+ // this.userDataModel
+ });
+  //final UserDataModel? userDataModel;
 
   @override
   State<MainHomeView> createState() => _MainHomeViewState();
@@ -24,7 +26,7 @@ class _MainHomeViewState extends State<MainHomeView> {
   void initState() {
   views = [
       HomeView(
-        userDataModel: widget.userDataModel!,
+     //   userDataModel: widget.userDataModel!,
       ),
       const StoreView(),
       const FavoriteView(),
