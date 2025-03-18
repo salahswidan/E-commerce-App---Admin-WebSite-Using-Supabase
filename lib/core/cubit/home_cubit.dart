@@ -111,4 +111,20 @@ class HomeCubit extends Cubit<HomeState> {
       }
     }
   }
+
+  Future<void> buyProduct({required String productId}) async {
+    emit(BuyProductLoading());
+    try {
+      await _apiServices.postData("purchase_table", {
+        "for_user": userId,
+        "for_product": productId,
+        "is_bought": true,
+      });
+      emit(BuyProductDone());
+    } catch (e) {
+      log(e.toString());
+      emit(BuyProductError());
+    
+    }
+  }
 }

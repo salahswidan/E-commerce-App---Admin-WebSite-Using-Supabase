@@ -5,8 +5,10 @@ import 'package:our_market/core/my_observer.dart';
 import 'package:our_market/view/auth/ui/login_view.dart';
 import 'package:our_market/view/nav_bar/ui/main_home_view.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+import 'core/components/custom_cicle_progress_indicator.dart';
 import 'core/sensitive_data.dart';
 import 'view/auth/logic/cubit/authentication_cubit.dart';
+import 'view/auth/logic/cubit/models/user_model.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -16,7 +18,10 @@ void main() async {
     anonKey: anonkey,
   );
   Bloc.observer = MyObserver();
-  runApp(const OurMarket());
+  runApp(BlocProvider(
+    create: (context) => AuthenticationCubit()..getUserData(),
+    child: const OurMarket(),
+  ));
 }
 
 class OurMarket extends StatelessWidget {
@@ -25,19 +30,25 @@ class OurMarket extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     SupabaseClient client = Supabase.instance.client;
-    return BlocProvider(
-      create: (context) => AuthenticationCubit()..getUserData(),
-      child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        title: 'Our Market',
-        theme: ThemeData(
-          scaffoldBackgroundColor: AppColors.kScaffoldColor,
-          useMaterial3: true,
-        ),
-        home: client.auth.currentUser != null ? MainHomeView(
-      //    userDataModel: context.read<AuthenticationCubit>().userDataModel!,
-        ) : LoginView(),
-      ),
+    return BlocBuilder<AuthenticationCubit, AuthenticationState>(
+      builder: (context, state) {
+    
+
+        return MaterialApp(
+          debugShowCheckedModeBanner: false,
+          title: 'Our Market',
+          theme: ThemeData(
+            scaffoldBackgroundColor: AppColors.kScaffoldColor,
+            useMaterial3: true,
+          ),
+          home: client.auth.currentUser != null
+              ? state is GetUserDataLoading ? Scaffold(body: Center(child: CustomCircleIndicator())) : MainHomeView(
+                  userDataModel:             context.read<AuthenticationCubit>().userDataModel!
+,
+                )
+              : LoginView(),
+        );
+      },
     );
   }
 }

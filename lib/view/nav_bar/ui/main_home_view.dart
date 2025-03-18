@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
@@ -12,9 +11,9 @@ import '../logic/cubit/nav_bar_cubit.dart';
 
 class MainHomeView extends StatefulWidget {
   MainHomeView({super.key,  
- // this.userDataModel
+ required  this.userDataModel
  });
-  //final UserDataModel? userDataModel;
+  final UserDataModel userDataModel;
 
   @override
   State<MainHomeView> createState() => _MainHomeViewState();
@@ -26,7 +25,7 @@ class _MainHomeViewState extends State<MainHomeView> {
   void initState() {
   views = [
       HomeView(
-     //   userDataModel: widget.userDataModel!,
+        userDataModel: widget.userDataModel!,
       ),
       const StoreView(),
       const FavoriteView(),

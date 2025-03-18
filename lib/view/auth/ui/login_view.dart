@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:our_market/core/app_colors.dart';
 import 'package:our_market/core/components/custom_cicle_progress_indicator.dart';
+import 'package:our_market/view/auth/logic/cubit/models/user_model.dart';
 import 'package:our_market/view/auth/ui/forget_view.dart';
 import 'package:our_market/view/auth/ui/sign_up_view.dart';
 import 'package:our_market/view/nav_bar/ui/main_home_view.dart';
@@ -32,7 +33,9 @@ class _LoginViewState extends State<LoginView> {
     return BlocConsumer<AuthenticationCubit, AuthenticationState>(
       listener: (context, state) {
         if (state is LoginSuccess || state is GoogleSignInSuccess) {
+          UserDataModel userDataModel = context.read<AuthenticationCubit>().userDataModel!;
           naviagteWithoutBack(context, MainHomeView(
+            userDataModel:userDataModel,
             
           ));
         }

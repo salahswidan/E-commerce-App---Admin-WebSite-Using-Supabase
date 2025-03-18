@@ -5,6 +5,7 @@ import 'package:our_market/view/nav_bar/ui/main_home_view.dart';
 import 'package:our_market/view/auth/logic/cubit/authentication_cubit.dart';
 import '../../../core/components/custom_cicle_progress_indicator.dart';
 import '../../../core/functions/show_msg.dart';
+import '../logic/cubit/models/user_model.dart';
 import 'widget/custom_row_with_arrow_btn.dart';
 import 'widget/custom_text_button.dart';
 import 'widget/custom_text_field.dart';
@@ -28,8 +29,11 @@ class _SignUpViewState extends State<SignUpView> {
     return BlocConsumer<AuthenticationCubit, AuthenticationState>(
       listener: (context, state) {
         if (state is SignUpSuccess || state is GoogleSignInSuccess) {
+                    UserDataModel userDataModel = context.read<AuthenticationCubit>().userDataModel!;
+
           Navigator.pushReplacement(
               context, MaterialPageRoute(builder: (context) => MainHomeView(
+                userDataModel: userDataModel,
               )));
         }
         if (state is SignUpError) {
