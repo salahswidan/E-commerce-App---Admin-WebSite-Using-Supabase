@@ -1,29 +1,32 @@
 import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:our_market/core/app_colors.dart';
 import 'package:our_market/core/components/cache_image.dart';
 import 'package:our_market/core/functions/navigate_to.dart';
 import 'package:our_market/core/models/product_model/product_model.dart';
 import 'package:pay_with_paymob/pay_with_paymob.dart';
-
 import '../../view/auth/ui/widget/custom_elevated_btn.dart';
 import '../../view/product_details/ui/product_details_view.dart';
 
 class ProductCard extends StatelessWidget {
   const ProductCard({
     super.key,
-    required this.product, this.onTap, required this.isFavorite,
+    required this.product,
+    this.onTap,
+    required this.isFavorite,required this.onPaymentSuccess,
   });
   final ProductModel product;
   final Function()? onTap;
-  final bool isFavorite ;
+  final VoidCallback onPaymentSuccess;
+  final bool isFavorite;
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => naviagteTo(context,  ProductDetailsView(
-        product: product,
-      )),
+      onTap: () => naviagteTo(
+          context,
+          ProductDetailsView(
+            product: product,
+          )),
       child: Card(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(16),
@@ -78,9 +81,11 @@ class ProductCard extends StatelessWidget {
                           )),
                       IconButton(
                         onPressed: onTap,
-                        icon:  Icon(
+                        icon: Icon(
                           Icons.favorite,
-                          color: isFavorite ? AppColors.kPrimaryColor : AppColors.kGreyColor,
+                          color: isFavorite
+                              ? AppColors.kPrimaryColor
+                              : AppColors.kGreyColor,
                         ),
                       ),
                     ],
@@ -111,9 +116,8 @@ class ProductCard extends StatelessWidget {
                               context,
                               MaterialPageRoute(
                                 builder: (context) => PaymentView(
-                                  onPaymentSuccess: () {
-                                    log("payment success");
-                                  },
+                                  onPaymentSuccess: onPaymentSuccess
+                                  ,
                                   onPaymentError: () {
                                     log("payment failure");
                                   },
